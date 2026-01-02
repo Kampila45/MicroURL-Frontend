@@ -22,19 +22,19 @@ export function ResultDisplay() {
   useEffect(() => {
     if (status === "success" && shortUrl && displayMode === "qr") {
       if (!qrDataUrl) {
-        setIsGenerating(true);
+      setIsGenerating(true);
         const minDelay = new Promise((resolve) => setTimeout(resolve, 800));
         const generate = generateQRCodeDataURL(shortUrl);
 
         Promise.all([generate, minDelay])
           .then(([dataUrl]) => {
-            setQrDataUrl(dataUrl);
-            setIsGenerating(false);
-          })
-          .catch((error) => {
-            console.error("Failed to generate QR code:", error);
-            setIsGenerating(false);
-          });
+          setQrDataUrl(dataUrl);
+          setIsGenerating(false);
+        })
+        .catch((error) => {
+          console.error("Failed to generate QR code:", error);
+          setIsGenerating(false);
+        });
       } else {
         setIsGenerating(false);
       }
@@ -81,7 +81,7 @@ export function ResultDisplay() {
 
   return (
     <div
-      className={`w-full max-w-md mx-auto p-6 bg-background border border-border rounded-2xl shadow-lg transition-all duration-500 ease-out ${
+      className={`w-full max-w-md mx-auto p-4 sm:p-6 bg-background border border-border rounded-2xl shadow-lg transition-all duration-500 ease-out ${
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-4 pointer-events-none"
@@ -118,23 +118,23 @@ export function ResultDisplay() {
           <h3 className="text-sm font-medium text-foreground">
             Your short URL:
           </h3>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <input
               type="text"
               value={shortUrl}
               readOnly
-              className="flex-1 px-4 py-3 border-2 border-border rounded-lg bg-muted text-foreground text-sm transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-border rounded-lg bg-muted text-foreground text-sm transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary/20 min-w-0"
             />
             <button
               onClick={handleCopy}
-              className={`px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98] ${
+              className={`px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98] whitespace-nowrap flex-shrink-0 ${
                 copied
                   ? "bg-green-600 hover:bg-green-700 scale-105"
                   : ""
               }`}
             >
               {copied ? (
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   <svg
                     className="w-4 h-4"
                     fill="none"
